@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface IUser extends mongoose.Document {
-  username: string,
+  email: string,
   password: string,
   jmbg: number,
   tokens: {token: string}[],
@@ -11,7 +11,7 @@ export interface IUser extends mongoose.Document {
 
 export interface IUserModel extends mongoose.Model<IUser> {
   // here we decalre statics
-  findByCredentials(username: string, password: string): IUser
+  findByCredentials(email: string, password: string): IUser
 }
 
 export interface IJmbg extends mongoose.Document {

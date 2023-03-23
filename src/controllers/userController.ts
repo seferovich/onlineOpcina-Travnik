@@ -14,7 +14,7 @@ const register = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {   
     try{
-        const user = await User.findByCredentials(req.body.username, req.body.password)
+        const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
         return res.status(200).send({user, token})
     }catch(e){

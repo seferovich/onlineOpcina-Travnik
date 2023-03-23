@@ -2,12 +2,18 @@ import mongoose from "mongoose"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import { IUser, IUserModel } from "../types/interfaces"
+import validator from "validator"
 
 const userSchema = new mongoose.Schema({
-  username: {
+  email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    validate(val: string) {
+      if(!validator.isEmail(val)){
+        throw new Error('Email is invalid!')
+      }
+    }
   },
   password: {
     type: String,
@@ -39,7 +45,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this as IUser
-  const token = jwt.sign({ _id: user._id.toString(), jmbg: user.jmbg.toString() }, process.env.JWT_SECRET as string)
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET as string)
 
   user.tokens = user.tokens?.concat({ token })
   await user.save()
@@ -48,8 +54,8 @@ userSchema.methods.generateAuthToken = async function () {
 }
 
 // Finding user by username and comparing passwords
-userSchema.statics.findByCredentials = async (username: string, password: string) => {
-  const user = await User.findOne({username})
+userSchema.statics.findByCredentials = async (email: string, password: string) => {
+  const user = await User.findOne({email})
 
   if(!user) {
     throw new Error('Could not find!')
