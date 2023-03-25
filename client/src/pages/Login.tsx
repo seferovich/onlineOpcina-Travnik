@@ -2,20 +2,37 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
-
-
+import PersonIcon from '@mui/icons-material/Person';
+import { useState } from 'react';
+import { ILoginData } from '../globals/interfaces';
+import { useAppDispatch } from '../hooks/hooks';
+import { login } from '../features/auth/authSlice';
 
 export default function Login() {
-  
+  const [formData, setFormData] = useState<ILoginData>({
+    email: '',
+    password: ''
+  })
+  const dispatch = useAppDispatch()
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement
+
+    setFormData(prevState => ({
+      ...prevState,
+      [target.name]: target.value 
+    }))
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    dispatch(login(formData))
+  }
 
   return (
     
@@ -29,16 +46,17 @@ export default function Login() {
             alignItems: 'center',
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}> */}
-            <img width='85px' src='https://upload.wikimedia.org/wikipedia/commons/1/1d/Coat_of_Arms_of_Travnik.png'></img>
-          {/* </Avatar> */}
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 56, height: 56 }}>
+            <PersonIcon fontSize='large' />
+          </Avatar>
           <Typography component="h1" variant="h5">
             Prijavite se
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
+              onChange={onChange}
               fullWidth
               id="email"
               label="Email Adresa"
@@ -49,6 +67,7 @@ export default function Login() {
             <TextField
               margin="normal"
               required
+              onChange={onChange}
               fullWidth
               name="password"
               label="Lozinka"
@@ -65,15 +84,10 @@ export default function Login() {
             >
               Prijavi se
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Zaboravili ste šifru?
-                </Link>
-              </Grid>
+            <Grid container justifyContent='center'>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Nemate račun? Registrirajte se"}
+                <Link to='/register'>
+                  <Typography color='text.primary' variant="body2">Nemate račun? Registrirajte se</Typography>
                 </Link>
               </Grid>
             </Grid>
