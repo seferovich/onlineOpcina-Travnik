@@ -11,6 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import React, { useState } from 'react';
 import { useAppDispatch } from '../hooks/hooks';
 import { register } from '../features/auth/authSlice';
+import Footer from '../components/Footer';
 
 
 
@@ -41,7 +42,7 @@ export default function Register() {
   console.log(formData)
 
   return (
-    
+    <Box>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -65,6 +66,7 @@ export default function Register() {
                     onChange={onChange}
                     required
                     fullWidth
+                    autoFocus
                     id="email"
                     type='email'
                     label="Email Adresa"
@@ -104,7 +106,6 @@ export default function Register() {
                     required
                     fullWidth
                     label="JMBG"
-                    autoFocus
                   />
                 </Grid>
               
@@ -127,8 +128,10 @@ export default function Register() {
             </Grid>
           </Box>
         </Box>
-      
+        
       </Container>
+      <Footer />
+      </Box>
    
   )
 }

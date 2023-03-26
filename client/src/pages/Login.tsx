@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { ILoginData } from '../globals/interfaces';
 import { useAppDispatch } from '../hooks/hooks';
 import { login } from '../features/auth/authSlice';
+import Footer from '../components/Footer';
 
 export default function Login() {
   const [formData, setFormData] = useState<ILoginData>({
@@ -35,7 +36,7 @@ export default function Login() {
   }
 
   return (
-    
+    <Box>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -94,5 +95,7 @@ export default function Login() {
           </Box>
         </Box>
       </Container>
+      <Footer />
+    </Box>
   )
 }

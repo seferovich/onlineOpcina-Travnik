@@ -9,3 +9,10 @@ export interface ILoginData {
   email: string,
   password: string,
 }
+
+export interface IJmbgData {
+  name: string,
+  dob: string,
+  pob: string,
+  jmbg: number
+}

@@ -1,11 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
 
-.foot {
+
+/* html{
+  background-color: #dddddd;
+}.footBox{ */
+  /* overflow: hidden;
+}
+div{
+  overflow: hidden;
+} */
+/* .foot {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
-}
+} */
 
 a{
   color: #1E375A;
   /* text-decoration: none; */
+  
 }
