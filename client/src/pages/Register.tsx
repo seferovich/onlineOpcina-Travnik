@@ -2,14 +2,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PersonIcon from '@mui/icons-material/Person';
-import React, { useState } from 'react';
-import { useAppDispatch } from '../hooks/hooks';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { register } from '../features/auth/authSlice';
 import Footer from '../components/Footer';
 
@@ -29,6 +29,8 @@ export default function Register() {
     e.preventDefault()
     dispatch(register(formData))
   }
+  const user = useAppSelector(state => state.auth.user)
+  
   
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement
@@ -39,7 +41,6 @@ export default function Register() {
     }))
   }
 
-  console.log(formData)
 
   return (
     <Box>

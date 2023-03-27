@@ -2,23 +2,26 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PersonIcon from '@mui/icons-material/Person';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ILoginData } from '../globals/interfaces';
-import { useAppDispatch } from '../hooks/hooks';
-import { login } from '../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { login, resetAuth } from '../features/auth/authSlice';
 import Footer from '../components/Footer';
+import validator from 'validator';
+import { toast } from 'react-toastify';
 
 export default function Login() {
   const [formData, setFormData] = useState<ILoginData>({
     email: '',
     password: ''
   })
+  const [isError, setIsError] = useState(false)
   const dispatch = useAppDispatch()
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +35,13 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(login(formData))
+    if(validator.isEmpty(formData.email, { ignore_whitespace: false }) || validator.isEmpty(formData.password, { ignore_whitespace: false })){
+      toast.error('Sva polja moraju biti popunjena!')
+      setIsError(true)
+    }else{
+      dispatch(login(formData))
+    }
+    
   }
 
   return (
@@ -60,6 +69,7 @@ export default function Login() {
               onChange={onChange}
               fullWidth
               id="email"
+              error={isError}
               label="Email Adresa"
               name="email"
               autoComplete="email"
@@ -68,6 +78,7 @@ export default function Login() {
             <TextField
               margin="normal"
               required
+              error={isError}
               onChange={onChange}
               fullWidth
               name="password"

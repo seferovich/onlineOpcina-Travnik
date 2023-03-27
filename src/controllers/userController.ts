@@ -18,7 +18,7 @@ const login = async (req: Request, res: Response) => {
         const token = await user.generateAuthToken()
         return res.status(200).send({user, token})
     }catch(e){
-        return res.status(500).send(`Incorrect password or username!`)
+        return res.status(500).send(`Netačna lozinka ili email!`)
     }
 }
 

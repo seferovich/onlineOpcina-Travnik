@@ -19,5 +19,4 @@ export interface IJmbg extends mongoose.Document {
   dob: string,
   pob: string,
   jmbg: number
-  
 }

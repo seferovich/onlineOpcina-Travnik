@@ -27,7 +27,8 @@ export const login = createAsyncThunk('auth/login', async (user: ILoginData, thu
         
     }catch(error: any){
         console.log(error) 
-        const message = error.response.data 
+        const message = error.response.data
+        console.log(error)
         return thunkAPI.rejectWithValue(message)
     }
 })
@@ -60,7 +61,7 @@ const authSlice = createSlice({
     name: 'Auth',
     initialState,
     reducers: {
-        reset: (state) => {
+        resetAuth: (state) => {
             state.isLoading = false
             state.isError = false
             state.isSuccess = false
@@ -118,5 +119,5 @@ const authSlice = createSlice({
 })
 
 
-export const { reset } = authSlice.actions
+export const { resetAuth } = authSlice.actions
 export default authSlice.reducer

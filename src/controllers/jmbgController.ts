@@ -15,10 +15,10 @@ const create = async (req: Request, res: Response) => {
 const getData = async (req: Request, res: Response) => {
   const user = await User.findById(req.user._id)
   try{
-      const jmbgData = await JmbgData.find({'jmbg': user!.jmbg})
-      res.status(200).send(jmbgData)
+    const jmbgData = await JmbgData.find({'jmbg': user!.jmbg})
+    res.status(200).send(jmbgData)
   }catch(e){
-      res.status(400).send(e)
+    res.status(400).send(e)
   }
 }
 
