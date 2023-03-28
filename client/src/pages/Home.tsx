@@ -1,9 +1,9 @@
-import { Box, Container, CssBaseline, Fade, Grid, IconButton, Paper, Typography } from '@mui/material'
+import { Box, Container, CssBaseline, Fade, Grid, Typography } from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import React, { useEffect } from 'react';
-import { getJmbgData } from '../features/user/userSlice';
+import { getJmbgData, getUser } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 interface MyButtonProps extends ButtonProps {
@@ -17,7 +17,7 @@ function MyButton({id, typographyText, ...props}: MyButtonProps){
   )
   return (
     <Button {...props} id={id} endIcon={<EndIcon typographyId={id} />} fullWidth sx={{height: {md: '90px', xs: '70px'}, mt: '20px'}} variant="contained">
-      <Typography fontWeight={600} id={id} fontSize={{md: '25px', sm: '22px', xs: '15px'}}>{typographyText}</Typography>
+      <Typography fontWeight={600} id={id} fontSize={{md: '25px', sm: '22px', xs: '18px'}}>{typographyText}</Typography>
     </Button>
   )
 }
@@ -29,6 +29,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(getJmbgData())
+    dispatch(getUser())
   }, [])
 
   const onClick = (e: React.MouseEvent<HTMLElement>) => {

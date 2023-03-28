@@ -40,7 +40,6 @@ root.render(
       <App />
     </ThemeProvider>
     </Provider>
-    
   </Router>
   
 )

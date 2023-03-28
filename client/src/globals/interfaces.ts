@@ -16,3 +16,8 @@ export interface IJmbgData {
   pob: string,
   jmbg: number
 }
+
+export interface ISendData {
+  name: string,
+  sendName: string
+}
