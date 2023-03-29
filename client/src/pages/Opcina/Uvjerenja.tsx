@@ -91,12 +91,12 @@ export default function Uvjerenja() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Izvod {currId}
+          Uvjerenje {currId}
         </DialogTitle>
 
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Pritiskom na dugme "Pošalji", vaš izvod će biti poslan na vaš email.
+            Pritiskom na dugme "Pošalji", vaš uvjerenje će biti poslan na vaš email.
             Molimo vas provjerite vaš spam folder u email-u.
           </DialogContentText>
         </DialogContent>
