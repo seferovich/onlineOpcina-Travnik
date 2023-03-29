@@ -8,7 +8,8 @@ export interface IState {
   user: string | null,
   isError: boolean,
   isLoading: boolean,
-  isSuccess: boolean,
+  isLoginSuccess: boolean,
+  isLogoutSuccess: boolean,
   message: string
 }
 
@@ -16,7 +17,8 @@ const initialState: IState = {
     user: user ? user : null, 
     isError: false,
     isLoading: false,
-    isSuccess: false,
+    isLoginSuccess: false,
+    isLogoutSuccess: false,
     message: ''
 }
 
@@ -64,7 +66,8 @@ const authSlice = createSlice({
         resetAuth: (state) => {
             state.isLoading = false
             state.isError = false
-            state.isSuccess = false
+            state.isLoginSuccess = false
+            state.isLogoutSuccess = false
             state.message = ''
         }
     },
@@ -76,7 +79,7 @@ const authSlice = createSlice({
         })
         .addCase(login.fulfilled, (state, action) => {
             state.isLoading = false
-            state.isSuccess = true  
+            state.isLoginSuccess = true  
             state.user = action.payload.token
         })
         .addCase(login.rejected, (state, action) => {
@@ -91,7 +94,7 @@ const authSlice = createSlice({
         })
         .addCase(register.fulfilled, (state, action) => {
             state.isLoading = false
-            state.isSuccess = true
+            state.isLoginSuccess = true
             state.user = null
         })
         .addCase(register.rejected, (state, action) => {
@@ -106,7 +109,7 @@ const authSlice = createSlice({
         })
         .addCase(logout.fulfilled, (state, action) => {
             state.isLoading = false
-            state.isSuccess = true
+            state.isLogoutSuccess = true
             state.user = null
         })
         .addCase(logout.rejected, (state, action) => {

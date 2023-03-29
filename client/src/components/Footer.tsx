@@ -22,7 +22,7 @@ export default function Footer()  {
         <Grid container direction="column" alignItems="center">
           <Grid item xs={12}>
             <Box display='flex' alignItems='center' flexDirection='row'>
-              <img className="foot" width='80px' alt="" src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Coat_of_Arms_of_Travnik.png" />
+              <img width='80px' src="https://live.staticflickr.com/65535/52779656306_d536985eba_o.png" alt="travnik"/>
               <Divider flexItem orientation="vertical" sx={{ml: '32px', mr: '17px'}} />
               <Typography fontSize='16px' fontWeight={600} ml={1} color="black" variant="h6">
                 Općina Travnik, 2035  

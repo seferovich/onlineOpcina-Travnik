@@ -12,7 +12,8 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { register } from '../features/auth/authSlice';
 import Footer from '../components/Footer';
-
+import validator from 'validator';
+import { toast } from 'react-toastify';
 
 
 
@@ -24,11 +25,23 @@ export default function Register() {
     password2: '',
     jmbg: 0
   })
+  const [isError, setIsError] = useState(false)
   const dispatch = useAppDispatch()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(register(formData))
-  }
+    if(validator.isEmpty(formData.email, { ignore_whitespace: false }) || validator.isEmpty(formData.password, { ignore_whitespace: false }) || validator.isEmpty(formData.password2, { ignore_whitespace: false }) || formData.jmbg === 0){
+      toast.error('Sva polja moraju biti popunjena!')
+      setIsError(true)
+    }else{
+      if(formData.password === formData.password2){
+        dispatch(register(formData))
+      }else{
+        toast.error('Lozinke se ne podudaraju!')
+        setIsError(true)
+      }
+    
+    }}
+
   const user = useAppSelector(state => state.auth.user)
   
   
@@ -68,6 +81,7 @@ export default function Register() {
                     required
                     fullWidth
                     autoFocus
+                    error={isError}
                     id="email"
                     type='email'
                     label="Email Adresa"
@@ -79,6 +93,7 @@ export default function Register() {
                   <TextField
                     onChange={onChange}
                     required
+                    error={isError}
                     fullWidth
                     name="password"
                     label="Lozinka"
@@ -92,9 +107,11 @@ export default function Register() {
                     onChange={onChange}
                     required
                     fullWidth
+                    error={isError}
                     name="password2"
+                    
                     label="Potvrdite Lozinku"
-                    type="password2"
+                    type="password"
                     id="password2"
                   />
                 </Grid>
@@ -104,14 +121,13 @@ export default function Register() {
                     onChange={onChange}
                     type='number'
                     name="jmbg"
+                    error={isError}
                     required
                     fullWidth
                     label="JMBG"
                   />
                 </Grid>
-              
-              
-                </Grid>
+              </Grid>
             <Button
               type="submit"
               fullWidth
@@ -131,7 +147,7 @@ export default function Register() {
         </Box>
         
       </Container>
-      <Footer />
+
       </Box>
    
   )

@@ -26,17 +26,24 @@ function App() {
   useEffect(() => {
     if(!jwt){
       navigate('/login')
+    }else{
+      navigate('/home')
     }
-  }, [jwt])
+  }, [])
 
   useEffect(() => {
-    if(auth.isSuccess){
+    if(auth.isLoginSuccess){
       navigate('/home')
+      dispatch(resetAuth)
+    }
+    if(auth.isLogoutSuccess){
+      navigate('/login')
       dispatch(resetAuth)
     }
 
     if(auth.isError){
       toast.error(auth.message)
+      dispatch(resetAuth)
     }
 
     if(!user.userData || !user.jmbgData){
@@ -47,11 +54,16 @@ function App() {
       }  
     }
 
-  }, [auth.isSuccess, auth.isError, auth])
+  }, [auth.isLoginSuccess, auth.isLogoutSuccess, auth.isError, auth])
 
   useEffect(() => {
     if(location.pathname === '/'){
-      navigate('/home')
+      if(jwt !== null){
+        navigate('/home')
+      }else{
+        navigate('/login')
+      }
+      
     }
   }, [])
 
