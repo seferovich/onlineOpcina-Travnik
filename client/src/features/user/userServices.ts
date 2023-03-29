@@ -8,7 +8,7 @@ const getJmbgData = async (token: string) => {
       },
   }
 
-  const response = await axios.get(`http://localhost:5001/api/jmbgData/getData`, config)
+  const response = await axios.get(`/api/jmbgData/getData`, config)
 
   return response.data
 }
@@ -20,7 +20,7 @@ const getUser = async (token: string) => {
       },
   }
 
-  const response = await axios.get(`http://localhost:5001/api/user/get`, config)
+  const response = await axios.get(`/api/user/get`, config)
 
   return response.data
 }
@@ -32,7 +32,7 @@ const sendUvjerenje = async (token: string, sendData: ISendData) => {
       },
   }
 
-  const response = await axios.post(`http://localhost:5001/api/jmbgData/sendUvjerenje`, sendData, config)
+  const response = await axios.post(`/api/jmbgData/sendUvjerenje`, sendData, config)
 
   return response.data
 }
@@ -44,7 +44,7 @@ const sendIzvod = async (token: string, sendData: ISendData) => {
       },
   }
 
-  const response = await axios.post(`http://localhost:5001/api/jmbgData/sendIzvod`, sendData, config)
+  const response = await axios.post(`/api/jmbgData/sendIzvod`, sendData, config)
 
   return response.data
 }
