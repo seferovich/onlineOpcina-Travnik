@@ -21,7 +21,7 @@ const sendUvjerenje = (email: string, name: string, uvjerenje: string) =>{
 }
 
 
-export const sg = {
+export {
   sendIzvod,
   sendUvjerenje
 }

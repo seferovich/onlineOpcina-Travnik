@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
-import { IJmbgData } from '../../globals/interfaces'
+import { IJmbgData, ISendData } from '../../globals/interfaces'
 import { userServices } from './userServices'
 
 
@@ -50,6 +50,31 @@ export const getUser = createAsyncThunk<IUserData, undefined, {state: RootState}
     }
 })
 
+export const sendUvjerenje = createAsyncThunk<IUserData, ISendData, {state: RootState}>('user/sendUvjerenje', async (data, thunkAPI) => {
+    try{
+        const token: string = thunkAPI.getState().auth.user!
+        return await userServices.sendUvjerenje(token, data)
+
+    }catch(error: any){
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const sendIzvod = createAsyncThunk<IUserData, ISendData, {state: RootState}>('user/sendIzvod', async (data, thunkAPI) => {
+    try{
+        const token: string = thunkAPI.getState().auth.user!
+        return await userServices.sendIzvod(token, data)
+
+    }catch(error: any){
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+
+
+
 const userSlice = createSlice({
     name: 'User',
     initialState,
@@ -85,6 +110,35 @@ const userSlice = createSlice({
             state.userData = action.payload
         })
         .addCase(getUser.rejected, (state, action) => {
+            state.isLoading = false
+            state.isError = true
+            state.message = action.payload as string
+            state.userData = null
+        })
+
+        .addCase(sendIzvod.pending, (state) => {
+            state.isLoading = true
+            
+        })
+        .addCase(sendIzvod.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+        })
+        .addCase(sendIzvod.rejected, (state, action) => {
+            state.isLoading = false
+            state.isError = true
+            state.message = action.payload as string
+            state.userData = null
+        })
+
+        .addCase(sendUvjerenje.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(sendUvjerenje.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+        })
+        .addCase(sendUvjerenje.rejected, (state, action) => {
             state.isLoading = false
             state.isError = true
             state.message = action.payload as string

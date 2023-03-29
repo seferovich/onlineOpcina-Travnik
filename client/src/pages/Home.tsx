@@ -27,10 +27,10 @@ function Home() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    dispatch(getJmbgData())
-    dispatch(getUser())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getJmbgData())
+  //   dispatch(getUser())
+  // }, [])
 
   const onClick = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement
@@ -53,8 +53,8 @@ function Home() {
             <Grid item xs={12}>
               <Typography mt='-20px' fontSize={{xs: '25px', sm: '35px'}} color='text.primary' fontWeight={500} align='center'>Kako vam možemo pomoći?</Typography>
             </Grid>
-              <Grid mt='30px' item md={4} sm={6} xs={8}>
-                <MyButton onClick={onClick} id='uslugeOpcine' typographyText='usluge Opcine' />
+              <Grid item md={4} sm={6} xs={8}>
+                <MyButton onClick={onClick} id='uslugeOpcine' typographyText='usluge Općine' />
                 <MyButton onClick={onClick} id='uslugePolicije' typographyText='usluge policije' />
                 <MyButton onClick={onClick} id='account' typographyText='Korisnički račun' />
 

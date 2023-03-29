@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Container, CssBaseline, Fade, Grid, Typography } from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { sendIzvod } from '../../features/user/userSlice';
+import { toast } from 'react-toastify';
 
 interface MyButtonProps extends ButtonProps {
   id: string,
@@ -22,13 +29,36 @@ function MyButton({id, typographyText, ...props}: MyButtonProps){
 }
 
 export default function Izvodi() {
-  const navigate = useNavigate()
+
+  const [open, setOpen] = useState(false)
+  const [currId, setCurrId] = useState('')
+  const name = useAppSelector(state => state.user.jmbgData?.[0]?.name)
+  const dispatch = useAppDispatch()
+
 
   const onClick = (e: React.MouseEvent<HTMLElement>) => {
-    const target = e.target as HTMLElement
-    navigate(`/uslugePolicije/${target.id}`)
+    dispatch(sendIzvod({
+      name: name,
+      sendName: currId
+    }))
+
+    setOpen(false)
+    toast.success('Poslano')
+  }
+
+  
+
+  const handleClickOpen = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.currentTarget as HTMLElement
+    setOpen(true)
+    setCurrId(target.id)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
   }
   return (
+    <div>
       <Fade in={true} timeout={400}>
         <Container maxWidth='lg'>
           <CssBaseline />
@@ -46,8 +76,8 @@ export default function Izvodi() {
               </Grid>
               
                 <Grid  item md={4} sm={6} xs={8}>
-                <MyButton onClick={onClick} id='uvjerenja' typographyText='prekršajna evidencija' />
-                <MyButton onClick={onClick} id='uvjerenja' typographyText='kaznena evidencija' />
+                <MyButton onClick={handleClickOpen} id='iz prekršajne evidencije' typographyText='prekršajna evidencija' />
+                <MyButton onClick={handleClickOpen} id='iz kaznene evidencije' typographyText='kaznena evidencija' />
                 </Grid>
             </Grid>
 
@@ -56,6 +86,31 @@ export default function Izvodi() {
 
         </Container>
       </Fade>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Izvod {currId}
+        </DialogTitle>
+
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Pritiskom na dugme "Pošalji", vaš izvod će biti poslan na vaš email.
+            Molimo vas provjerite vaš spam folder u email-u.
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleClose}>Zatvori</Button>
+          <Button onClick={onClick} autoFocus>
+            Pošalji
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   )
 }
 

@@ -1,7 +1,7 @@
 import JmbgData from "../models/jmbgModel"
 import { Request, Response } from "express";
 import User from "../models/userModel";
-import { sg } from "../emails/emails";
+import { sendIzvod, sendUvjerenje } from "../emails/emails";
 
 const create = async (req: Request, res: Response) => {
   const jmbgData = new JmbgData(req.body)
@@ -26,7 +26,7 @@ const getData = async (req: Request, res: Response) => {
 const uvjerenje = async (req: Request, res: Response) => {
   const user = await User.findById(req.user._id)
   try{
-    sg.sendUvjerenje(user?.email as string, req.body.name, req.body.sendName )
+    sendUvjerenje(user?.email as string, req.body.name, req.body.sendName )
     res.status(200).send('Poslano')
   }catch(e){
     res.status(400).send(e)
@@ -34,12 +34,13 @@ const uvjerenje = async (req: Request, res: Response) => {
 }
 
 const izvod = async (req: Request, res: Response) => {
-  const user = await User.findById(req.user._id)
+  
   try{
-    sg.sendIzvod(user?.email as string, req.body.name, req.body.sendName )
+    const user = await User.findById(req.user._id)
+    sendIzvod(user?.email as string, req.body.name, req.body.sendName )
     res.status(200).send('Poslano')
-  }catch(e){
-    res.status(400).send(e)
+  }catch(e: any){
+    res.status(400).send(e.body)
   }
 }
 

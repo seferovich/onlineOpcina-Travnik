@@ -18,6 +18,6 @@ export interface IJmbgData {
 }
 
 export interface ISendData {
-  name: string,
+  name?: string,
   sendName: string
 }
