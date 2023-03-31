@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import { Box, Container, CssBaseline, Fade, Grid, Typography } from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Button, { ButtonProps } from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { sendIzvod, sendUvjerenje } from '../../features/user/userSlice';
+import { sendUvjerenje } from '../../features/user/userSlice';
 import { toast } from 'react-toastify';
 
 interface MyButtonProps extends ButtonProps {
