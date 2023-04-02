@@ -2,13 +2,13 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PersonIcon from '@mui/icons-material/Person';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ILoginData } from '../globals/interfaces';
 import { useAppDispatch } from '../hooks/hooks';
 import { login } from '../features/auth/authSlice';
@@ -23,7 +23,7 @@ export default function Login() {
   })
   const [isError, setIsError] = useState(false)
   const dispatch = useAppDispatch()
-
+  const navigate = useNavigate()
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement
 
@@ -32,6 +32,12 @@ export default function Login() {
       [target.name]: target.value 
     }))
   }
+  const jwt = localStorage.getItem('jwt')
+  useEffect(() => {
+    if(jwt){
+      navigate('/home')
+    }
+  }, [])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -106,7 +112,6 @@ export default function Login() {
           </Box>
         </Box>
       </Container>
-      <Footer />
     </Box>
   )
 }

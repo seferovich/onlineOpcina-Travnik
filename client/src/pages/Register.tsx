@@ -27,6 +27,7 @@ export default function Register() {
   })
   const [isError, setIsError] = useState(false)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if(validator.isEmpty(formData.email, { ignore_whitespace: false }) || validator.isEmpty(formData.password, { ignore_whitespace: false }) || validator.isEmpty(formData.password2, { ignore_whitespace: false }) || formData.jmbg === 0){
@@ -42,7 +43,13 @@ export default function Register() {
     
     }}
 
-  const user = useAppSelector(state => state.auth.user)
+  const jwt = localStorage.getItem('jwt')
+
+  useEffect(() => {
+    if(jwt){
+      navigate('/home')
+    }
+  }, [])
   
   
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

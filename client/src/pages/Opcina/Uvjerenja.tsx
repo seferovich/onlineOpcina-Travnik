@@ -95,7 +95,7 @@ export default function Uvjerenja() {
 
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Pritiskom na dugme "Pošalji", vaš uvjerenje će biti poslan na vaš email.
+            Pritiskom na dugme "Pošalji", vaše uvjerenje će biti poslano na vaš email.
             Molimo vas provjerite vaš spam folder u email-u.
           </DialogContentText>
         </DialogContent>
