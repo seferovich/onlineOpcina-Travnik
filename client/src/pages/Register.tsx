@@ -9,9 +9,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PersonIcon from '@mui/icons-material/Person';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { useAppDispatch } from '../hooks/hooks';
 import { register } from '../features/auth/authSlice';
-import Footer from '../components/Footer';
 import validator from 'validator';
 import { toast } from 'react-toastify';
 
@@ -28,6 +27,8 @@ export default function Register() {
   const [isError, setIsError] = useState(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const jwt = localStorage.getItem('jwt')
+  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if(validator.isEmpty(formData.email, { ignore_whitespace: false }) || validator.isEmpty(formData.password, { ignore_whitespace: false }) || validator.isEmpty(formData.password2, { ignore_whitespace: false }) || formData.jmbg === 0){
@@ -43,7 +44,6 @@ export default function Register() {
     
     }}
 
-  const jwt = localStorage.getItem('jwt')
 
   useEffect(() => {
     if(jwt){

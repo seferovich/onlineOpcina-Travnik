@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Container, CssBaseline, Fade, Grid, Typography } from '@mui/material'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Button, { ButtonProps } from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -11,22 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { sendIzvod } from '../../features/user/userSlice';
 import { toast } from 'react-toastify';
+import MyButton from '../../components/MyButton';
 
-interface MyButtonProps extends ButtonProps {
-  id: string,
-  typographyText: string
-}
-
-function MyButton({id, typographyText, ...props}: MyButtonProps){
-  const EndIcon = ({ typographyId }: { typographyId: string }) => (
-    <ArrowForwardIosIcon id={id} fontSize='large' />
-  )
-  return (
-    <Button {...props} id={id} endIcon={<EndIcon typographyId={id} />} fullWidth sx={{height: {md: '90px', xs: '70px'}, mt: '20px'}} variant="contained">
-      <Typography fontWeight={600} id={id} fontSize={{md: '22px', sm: '20px', xs: '18px'}}>{typographyText}</Typography>
-    </Button>
-  )
-}
 
 export default function Izvodi() {
   const [open, setOpen] = useState(false)

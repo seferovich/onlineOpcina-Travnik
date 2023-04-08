@@ -16,10 +16,10 @@ import Policija from './pages/Policija/Policija';
 import { getJmbgData, getUser, resetUser } from './features/user/userSlice';
 
 function App() {
-  const jwt = localStorage.getItem('jwt')
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useAppDispatch()
+  const jwt = localStorage.getItem('jwt')
   const auth = useAppSelector(state => state.auth)
   const user = useAppSelector(state => state.user)
 

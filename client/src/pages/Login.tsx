@@ -12,9 +12,9 @@ import { useEffect, useState } from 'react';
 import { ILoginData } from '../globals/interfaces';
 import { useAppDispatch } from '../hooks/hooks';
 import { login } from '../features/auth/authSlice';
-import Footer from '../components/Footer';
 import validator from 'validator';
 import { toast } from 'react-toastify';
+
 
 export default function Login() {
   const [formData, setFormData] = useState<ILoginData>({
@@ -24,6 +24,8 @@ export default function Login() {
   const [isError, setIsError] = useState(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const jwt = localStorage.getItem('jwt')
+  
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement
 
@@ -32,7 +34,7 @@ export default function Login() {
       [target.name]: target.value 
     }))
   }
-  const jwt = localStorage.getItem('jwt')
+
   useEffect(() => {
     if(jwt){
       navigate('/home')
