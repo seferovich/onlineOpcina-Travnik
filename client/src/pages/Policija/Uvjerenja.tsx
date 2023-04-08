@@ -61,7 +61,6 @@ export default function Uvjerenja() {
                 <Grid  item md={4} sm={6} xs={8}>
                   <MyButton onClick={handleClickOpen} id='o nekažnjavanju' typographyText='o nekažnjavanju' />
                   <MyButton onClick={handleClickOpen} id='o prebivalištu' typographyText='o prebivalištu' />
-                  <MyButton onClick={handleClickOpen} id='o kretanju' typographyText='o kretanju' />
                   <MyButton onClick={handleClickOpen} id='o kaznama' typographyText='o kaznama' />
                   
                 </Grid>
